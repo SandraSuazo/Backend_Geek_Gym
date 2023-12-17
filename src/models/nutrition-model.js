@@ -4,7 +4,7 @@ const nutritionSchema = new Schema(
   {
     type: {
       type: String,
-      enum: ["balanceDiet", "proteinDiet", "ketogenicDiet", "paleoDiet"],
+      enum: ["balanceDiet", "proteinDiet", "ketogenicDiet"],
       required: true,
     },
     description: { type: String, required: true },
