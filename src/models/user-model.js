@@ -2,18 +2,20 @@ import mongoose, { Schema } from "mongoose";
 
 const userSchema = new Schema(
   {
-    name: { type: String, required: true, minlength: 3, maxlength: 200 },
+    _id: { type: Schema.Types.ObjectId, ref: "Auth", required: true },
     phone: { type: Number, unique: true, minlength: 9 },
     adress: { type: String, maxlength: 200 },
-    email: { type: String, required: true, unique: true, maxlength: 50 },
-    password: { type: String, required: true, select: false, maxlenght: 15 },
-    subscription: { type: Number, required: true },
-    role: {
+    weight: { type: Number },
+    height: { type: Number },
+    gender: {
       type: String,
-      enum: ["admin", "customer", "monitor"],
-      required: true,
+      enum: ["female", "male", "other"],
     },
-    isActive: { type: Boolean, required: true },
+    nutrition: {
+      type: String,
+      enum: ["balanceDiet", "proteinDiet", "ketogenicDiet"],
+    },
+    subscription: { type: Number, required: true },
   },
   { versionKey: false, timestamps: true }
 );
