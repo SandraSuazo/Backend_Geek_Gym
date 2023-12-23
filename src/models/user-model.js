@@ -7,6 +7,7 @@ const userSchema = new Schema(
     adress: { type: String, minlength: 5 },
     email: { type: String, required: true, unique: true, maxlength: 50 },
     password: { type: String, required: true, select: false, maxlenght: 15 },
+    subscription: { type: Number, required: true },
     role: {
       type: String,
       enum: ["admin", "customer", "monitor"],
