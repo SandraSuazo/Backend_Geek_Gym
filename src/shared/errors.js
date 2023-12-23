@@ -3,7 +3,10 @@ const errorMessages = {
   NO_FIELD_MODIFIED: { code: 400, message: "No field modified" },
   INVALID_ROLE: { code: 400, message: "Invalid role" },
   INVALID_DATE: { code: 400, message: "Invalid date" },
-  INCORRECT_PASSWORD: { code: 401, message: "Incorrect Password" },
+  INCORRECT_EMAIL_PASSWORD: {
+    code: 401,
+    message: "User not found or incorrect credentials",
+  },
   INVALID_PASSWORD_FORMAT: {
     code: 401,
     message:
