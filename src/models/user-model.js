@@ -4,7 +4,7 @@ const userSchema = new Schema(
   {
     name: { type: String, required: true, minlength: 3, maxlength: 200 },
     phone: { type: Number, unique: true, minlength: 9 },
-    adress: { type: String, minlength: 5 },
+    adress: { type: String, maxlength: 200 },
     email: { type: String, required: true, unique: true, maxlength: 50 },
     password: { type: String, required: true, select: false, maxlenght: 15 },
     subscription: { type: Number, required: true },
