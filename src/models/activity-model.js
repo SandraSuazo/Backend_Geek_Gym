@@ -10,17 +10,17 @@ const activitySchema = new Schema(
     date: { type: Date, required: true },
     startTime: { type: String, required: true },
     endTime: { type: String, required: true },
+    monitor: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     customers: [
       {
         type: Schema.Types.ObjectId,
         ref: "User",
       },
     ],
-    monitor: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
   },
   { versionKey: false, timestamps: true }
 );
