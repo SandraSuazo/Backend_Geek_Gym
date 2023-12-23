@@ -3,7 +3,6 @@ const errorMessages = {
   NO_FIELD_MODIFIED: { code: 400, message: "No field modified" },
   INVALID_ROLE: { code: 400, message: "Invalid role" },
   INVALID_DATE: { code: 400, message: "Invalid date" },
-  INVALID_TIME: { code: 400, message: "Invalid time" },
   INCORRECT_PASSWORD: { code: 401, message: "Incorrect Password" },
   INVALID_PASSWORD_FORMAT: {
     code: 401,
@@ -14,6 +13,7 @@ const errorMessages = {
     code: 401,
     message: "The email format is not correct",
   },
+  INVALID_TIME_FORMAT: { code: 401, message: "The time format is 00:00" },
   INCOMPLETE_CREDENTIALS: { code: 401, message: "Incomplete Credentials" },
   TOKEN_NOT_PROVIDED: { code: 401, message: "Token Not Provided" },
   ACCESS_DENIED: { code: 403, message: "Access Denied" },
