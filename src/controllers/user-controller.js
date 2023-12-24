@@ -1,31 +1,58 @@
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import { Auth } from "../models/auth-model.js";
 import { User } from "../models/user-model.js";
 import { CONFIG } from "../core/config.js";
 import { validateEmail, validatePassword } from "../shared/validators.js";
 
-export const registerUser = async (newUser, next) => {
-  // const missingFields = registrationFields.filter((field) => !newUser[field]);
-  // if (missingFields.length > 0) {
-  //   throw new Error(next("MISSING_REQUIRED_FIELDS"));
-  // }
-  try {
-    const user = await User.findOne({ email: newUser.email });
-    if (user) {
-      throw new Error(next("USER_ALREADY_EXISTS"));
-    } else {
-      validateEmail(newUser.email, next);
-      validatePassword(newUser.password, next);
-      newUser.password = await bcrypt.hash(
-        newUser.password,
-        CONFIG.HASH_ROUNDS
-      );
-      newUser.role = "customer";
-      newUser.isActive = true;
-    }
-    await User.create(newUser);
-    return newUser;
-  } catch (error) {
-    next(error);
+export const profileUser = async (userId, next) => {
+  const authUser = await Auth.findById(userId);
+  if (!authUser) {
+    throw new Error(next("USER_NOT_FOUND"));
   }
+
+  let user = await User.findById(userId);
+  if (!user) {
+    throw new Error(next("USER_NOT_FOUND"));
+  }
+
+  return { authUser, user };
+};
+
+export const updateProfile = async (userId, updatedData, next) => {
+  if (updatedData.email !== undefined) {
+    validateEmail(updatedData.email, next);
+  }
+
+  if (updatedData.password !== undefined) {
+    validatePassword(updatedData.password, next);
+    const hashedPassword = await bcrypt.hash(
+      updatedData.password,
+      CONFIG.HASH_ROUNDS
+    );
+    updatedData.password = hashedPassword;
+  }
+
+  const authUser = await Auth.findByIdAndUpdate(userId, updatedData);
+  if (!authUser) {
+    throw new Error(next("USER_NOT_FOUND"));
+  }
+
+  let user = await User.findByIdAndUpdate(userId, updatedData);
+  if (!user) {
+    user = await User.create({
+      _id: userId,
+      ...updatedData,
+    });
+  }
+
+  return "Modified user profile";
+};
+
+export const deactivateUser = async (userId, next) => {
+  const authUser = await Auth.findById(userId);
+  if (!authUser) {
+    throw new Error(next("USER_NOT_FOUND"));
+  }
+  authUser.isActive = false;
+  await authUser.save();
+  return authUser;
 };
