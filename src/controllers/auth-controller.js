@@ -2,10 +2,10 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { Auth } from "../models/auth-model.js";
 import { CONFIG } from "../core/config.js";
-import { registrationFields } from "../shared/helpers.js";
 import { validateEmail, validatePassword } from "../shared/validators.js";
 
 export const register = async (newUser, next) => {
+  const registrationFields = ["name", "email", "password"];
   const missingFields = registrationFields.filter((field) => !newUser[field]);
   if (missingFields.length > 0) {
     throw new Error(next("MISSING_REQUIRED_FIELDS"));
