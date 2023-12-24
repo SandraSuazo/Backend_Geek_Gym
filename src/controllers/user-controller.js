@@ -5,12 +5,8 @@ import { validateEmail, validatePassword } from "../shared/validators.js";
 
 export const profileUser = async (userId, next) => {
   const authUser = await Auth.findById(userId);
-  if (!authUser) {
-    throw new Error(next("USER_NOT_FOUND"));
-  }
-
-  let user = await User.findById(userId);
-  if (!user) {
+  const user = await User.findById(userId);
+  if (!authUser && !user) {
     throw new Error(next("USER_NOT_FOUND"));
   }
 
@@ -24,11 +20,10 @@ export const updateProfile = async (userId, updatedData, next) => {
 
   if (updatedData.password !== undefined) {
     validatePassword(updatedData.password, next);
-    const hashedPassword = await bcrypt.hash(
+    updatedData.password = await bcrypt.hash(
       updatedData.password,
       CONFIG.HASH_ROUNDS
     );
-    updatedData.password = hashedPassword;
   }
 
   const authUser = await Auth.findByIdAndUpdate(userId, updatedData);
@@ -38,7 +33,7 @@ export const updateProfile = async (userId, updatedData, next) => {
 
   let user = await User.findByIdAndUpdate(userId, updatedData);
   if (!user) {
-    user = await User.create({
+    await User.create({
       _id: userId,
       ...updatedData,
     });
@@ -48,11 +43,9 @@ export const updateProfile = async (userId, updatedData, next) => {
 };
 
 export const deactivateUser = async (userId, next) => {
-  const authUser = await Auth.findById(userId);
+  const authUser = await Auth.findByIdAndUpdate(userId, { isActive: false });
   if (!authUser) {
     throw new Error(next("USER_NOT_FOUND"));
   }
-  authUser.isActive = false;
-  await authUser.save();
   return authUser;
 };
