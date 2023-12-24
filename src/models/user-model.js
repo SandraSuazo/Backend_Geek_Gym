@@ -15,7 +15,7 @@ const userSchema = new Schema(
       type: String,
       enum: ["balanceDiet", "proteinDiet", "ketogenicDiet"],
     },
-    subscription: { type: Number, required: true },
+    subscription: { type: Number },
   },
   { versionKey: false, timestamps: true }
 );
