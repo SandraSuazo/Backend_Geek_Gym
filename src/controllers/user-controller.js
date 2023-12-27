@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import { Auth } from "../models/auth-model.js";
 import { User } from "../models/user-model.js";
 import { CONFIG } from "../core/config.js";
@@ -9,22 +10,21 @@ export const profileUser = async (userId, next) => {
   if (!authUser && !user) {
     throw new Error(next("USER_NOT_FOUND"));
   }
-
   return { authUser, user };
 };
 
 export const updateProfile = async (userId, updatedData, next) => {
-  if (updatedData.email !== undefined) {
+  if (updatedData.email !== "") {
     validateEmail(updatedData.email, next);
   }
 
-  if (updatedData.password !== undefined) {
-    validatePassword(updatedData.password, next);
-    updatedData.password = await bcrypt.hash(
-      updatedData.password,
-      CONFIG.HASH_ROUNDS
-    );
-  }
+  // if (updatedData.password !== "") {
+  //   validatePassword(updatedData.password, next);
+  //   updatedData.password = await bcrypt.hash(
+  //     updatedData.password,
+  //     CONFIG.HASH_ROUNDS
+  //   );
+  // }
 
   const authUser = await Auth.findByIdAndUpdate(userId, updatedData);
   if (!authUser) {
@@ -38,8 +38,7 @@ export const updateProfile = async (userId, updatedData, next) => {
       ...updatedData,
     });
   }
-
-  return "Modified user profile";
+  return { authUser, user };
 };
 
 export const deactivateUser = async (userId, next) => {
