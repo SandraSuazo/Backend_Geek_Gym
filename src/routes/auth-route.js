@@ -4,9 +4,8 @@ import { register, login } from "../controllers/auth-controller.js";
 const router = express.Router();
 
 router.post("/", async (req, res, next) => {
-  const newUser = req.body;
   try {
-    res.json(await register(newUser, next));
+    res.json(await register(req.body, next));
   } catch (error) {
     next("INTERNAL_SERVER_ERROR");
   }

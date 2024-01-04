@@ -1,7 +1,5 @@
 const errorMessages = {
   MISSING_REQUIRED_FIELDS: { code: 400, message: "Some fields are missing" },
-  NO_FIELD_MODIFIED: { code: 400, message: "No field modified" },
-  INVALID_ROLE: { code: 400, message: "Invalid role" },
   INVALID_DATE: { code: 400, message: "Invalid date" },
   INCORRECT_EMAIL_PASSWORD: {
     code: 401,
@@ -26,7 +24,6 @@ const errorMessages = {
     message: "The establishment is open from 6:00 to 23:00",
   },
   USER_NOT_FOUND: { code: 404, message: "User not found" },
-  ACTIVITY_NOT_FOUND: { code: 404, message: "Activity not found" },
   USER_ALREADY_EXISTS: { code: 422, message: "User already exists" },
   INTERNAL_SERVER_ERROR: { code: 500, message: "Internal Server Error" },
 };
