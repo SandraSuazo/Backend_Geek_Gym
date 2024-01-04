@@ -12,13 +12,13 @@ const activitySchema = new Schema(
     endTime: { type: String, required: true },
     monitor: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Auth",
       required: true,
     },
     customers: [
       {
         type: Schema.Types.ObjectId,
-        ref: "User",
+        ref: "Auth",
       },
     ],
   },
