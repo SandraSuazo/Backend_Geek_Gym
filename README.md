@@ -1,11 +1,12 @@
 # Geek Gym
 
+Este es el backend de Geek Gym, una plataforma en desarrollo que ofrece servicios relacionados con el fitness y bienestar. Este backend proporciona funciones como registro de usuarios, inicio de sesión, gestión de perfiles y actividades, con el objetivo de enriquecer tu experiencia. Estamos trabajando constantemente para implementar nuevas características y mejorar la funcionalidad general.
+
 ## Índice
 
 - [Tecnologías](#tectonogías)
 - [Instalación](#instalación)
 - [Endpoints y Acciones](#endpoints)
-- [Pruebas Unitarias](#pruebas)
 - [Contacto](#contacto)
 
 ## Tecnologías
@@ -76,8 +77,6 @@ Con estos pasos, tendrás el backend de Geek Gym en funcionamiento y podrás com
 | `/activity/` | POST       | Registro de una nueva actividad | Sí            | Sí - Administrador |
 
 Quiero informaros que el backend de Geek Gym se encuentra actualmente en una fase inicial de desarrollo. Aunque ya puedes aprovechar algunas funcionalidades, estoy trabajando para implementar características adicionales que mejorarán tu experiencia. En este momento, algunas de las funcionalidades, como la gestión de "Actividades", aún están en proceso de desarrollo.
-
-## Pruebas Unitarias
 
 ## Contacto
 
